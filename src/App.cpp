@@ -7,9 +7,8 @@ App::App(GLFWwindow* window) noexcept
     : window_(window) {
 }
 
-App::App(App&& other) noexcept
-    : window_(other.window_) {
-    other.window_ = undefinedWindow;
+App::App(App&& other) noexcept {
+    std::swap(*this, other);
 }
 
 App::~App() noexcept {
@@ -20,9 +19,12 @@ App::~App() noexcept {
 }
 
 App& App::operator=(App&& other) noexcept {
-    window_ = other.window_;
-    other.window_ = undefinedWindow;
+    std::swap(*this, other);
     return *this;
+}
+
+void App::swap(App& other) noexcept {
+    std::swap(window_, other.window_);
 }
 
 void App::loop(const std::vector<ShaderProgram>& shaderPrograms) noexcept {
@@ -75,4 +77,10 @@ Result<App> AppFactory::createApp(std::string&& title, int32_t screenWidth, int3
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     return Result<App>(std::move(app));
+}
+
+namespace std {
+    void swap(App& lhs, App& rhs) noexcept {
+        lhs.swap(rhs);
+    }
 }

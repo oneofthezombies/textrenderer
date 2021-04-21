@@ -6,9 +6,8 @@ Shader::Shader(uint32_t value) noexcept
     : value_(value) {
 }
 
-Shader::Shader(Shader&& other) noexcept 
-    : value_(other.value_) {
-    other.value_ = undefined;
+Shader::Shader(Shader&& other) noexcept {
+    std::swap(*this, other);
 }
 
 Shader::~Shader() noexcept {
@@ -18,17 +17,31 @@ Shader::~Shader() noexcept {
     value_ = undefined;
 }
 
+Shader& Shader::operator=(Shader&& other) noexcept {
+    std::swap(*this, other);
+    return *this;
+}
+
 uint32_t Shader::get() const noexcept {
     return value_;
+}
+
+void Shader::swap(Shader& other) noexcept {
+    std::swap(value_, other.value_);
+}
+
+namespace std {
+    void swap(Shader& lhs, Shader& rhs) noexcept {
+        lhs.swap(rhs);
+    }
 }
 
 ShaderProgram::ShaderProgram(uint32_t value) noexcept 
     : value_(value) {
 }
 
-ShaderProgram::ShaderProgram(ShaderProgram&& other) noexcept
-    : value_(other.value_) {
-    other.value_ = undefined;
+ShaderProgram::ShaderProgram(ShaderProgram&& other) noexcept {
+    std::swap(*this, other);
 }
 
 ShaderProgram::~ShaderProgram() noexcept {
@@ -39,9 +52,18 @@ ShaderProgram::~ShaderProgram() noexcept {
 }
 
 ShaderProgram& ShaderProgram::operator=(ShaderProgram&& other) noexcept {
-    value_ = other.value_;
-    other.value_ = undefined;
+    std::swap(*this, other);
     return *this;
+}
+
+void ShaderProgram::swap(ShaderProgram& other) noexcept {
+    std::swap(value_, other.value_);
+}
+
+namespace std {
+    void swap(ShaderProgram& lhs, ShaderProgram& rhs) noexcept {
+        lhs.swap(rhs);
+    }
 }
 
 uint32_t ShaderProgram::get() const noexcept {

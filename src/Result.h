@@ -93,3 +93,4 @@ Result<T>& Result<T>::throwIfError() {
     }
     return *this;
 }
+

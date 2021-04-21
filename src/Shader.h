@@ -11,6 +11,8 @@ public:
 
     uint32_t get() const noexcept;
 
+    void swap(Shader& other) noexcept;
+
     Shader& operator=(Shader&& other) noexcept;
 
     Shader(const Shader&) = delete;
@@ -26,12 +28,18 @@ private:
     friend ShaderFactory;
 };
 
+namespace std {
+    void swap(Shader& lhs, Shader& rhs) noexcept;
+}
+
 class ShaderProgram {
 public:
     ShaderProgram(ShaderProgram&& other) noexcept;
     ~ShaderProgram() noexcept;
 
     uint32_t get() const noexcept;
+
+    void swap(ShaderProgram& other) noexcept;
 
     ShaderProgram& operator=(ShaderProgram&& other) noexcept;
 
@@ -47,6 +55,10 @@ private:
 
     friend ShaderFactory;
 };
+
+namespace std {
+    void swap(ShaderProgram& lhs, ShaderProgram& rhs) noexcept;
+}
 
 class ShaderFactory {
 public:

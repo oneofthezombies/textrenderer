@@ -17,6 +17,8 @@ public:
 
     GLFWwindow* getWindow() const noexcept;
 
+    void swap(App& other) noexcept;
+
     App& operator=(App&& other) noexcept;
 
     static void onResize(GLFWwindow* window, int32_t width, int32_t height) noexcept;
@@ -33,6 +35,10 @@ private:
 
     friend AppFactory;
 };
+
+namespace std {
+    void swap(App& lhs, App& rhs) noexcept;
+}
 
 class AppFactory {
 public:

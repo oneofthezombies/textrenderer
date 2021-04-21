@@ -14,3 +14,7 @@ struct Error {
 };
 
 std::ostream& operator<<(std::ostream& ostream, const Error& error) noexcept;
+
+namespace std {
+    void swap(Error& lhs, Error& rhs) noexcept;
+}
