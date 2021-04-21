@@ -144,8 +144,8 @@ Result<ShaderProgram> ShaderFactory::createShaderProgram(std::string&& vertexSha
         return Result<ShaderProgram>(Error(1, std::move(infoLog)));
     }
 
-	glDetachShader(shaderProgram.get(), vertexShader.get());
-	glDetachShader(shaderProgram.get(), fragmentShader.get());
+    glDetachShader(shaderProgram.get(), vertexShader.get());
+    glDetachShader(shaderProgram.get(), fragmentShader.get());
 
     return Result<ShaderProgram>(std::move(shaderProgram));
 }
