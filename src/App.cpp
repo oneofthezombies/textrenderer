@@ -9,19 +9,19 @@ App::App(GLFWwindow* window) noexcept
 
 App::App(App&& other) noexcept
     : window_(other.window_) {
-    other.window_ = nullptr;
+    other.window_ = undefinedWindow;
 }
 
 App::~App() noexcept {
-    if (nullptr != window_) {
+    if (undefinedWindow != window_) {
         glfwTerminate();
     }
-    window_ = nullptr;
+    window_ = undefinedWindow;
 }
 
 App& App::operator=(App&& other) noexcept {
     window_ = other.window_;
-    other.window_ = nullptr;
+    other.window_ = undefinedWindow;
     return *this;
 }
 

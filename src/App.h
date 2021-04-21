@@ -27,7 +27,9 @@ public:
 private:
     App(GLFWwindow* window) noexcept;
 
-    GLFWwindow* window_ = nullptr;
+    GLFWwindow* window_ = undefinedWindow;
+
+    static constexpr GLFWwindow* undefinedWindow = std::numeric_limits<GLFWwindow*>::max();
 
     friend AppFactory;
 };
