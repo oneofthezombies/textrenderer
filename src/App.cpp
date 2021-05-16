@@ -1,5 +1,6 @@
 #include "App.h"
-#define GL_SILENCE_DEPRECATION
+#include <GL/glew.h>
+// #define GL_SILENCE_DEPRECATION
 #include <GLFW/glfw3.h>
 #include "Shader.h"
 
@@ -8,7 +9,7 @@ App::App(GLFWwindow* window) noexcept
 }
 
 App::App(App&& other) noexcept {
-    std::swap(*this, other);
+    swap(other);
 }
 
 App::~App() noexcept {
@@ -19,7 +20,7 @@ App::~App() noexcept {
 }
 
 App& App::operator=(App&& other) noexcept {
-    std::swap(*this, other);
+    swap(other);
     return *this;
 }
 
@@ -41,10 +42,6 @@ void App::loop(const std::vector<ShaderProgram>& shaderPrograms) noexcept {
     }
 }
 
-GLFWwindow* App::getWindow() const noexcept {
-    return window_;
-}
-
 void App::onResize(GLFWwindow* window, int32_t width, int32_t height) noexcept {
     glViewport(0, 0, width, height);
 }
@@ -62,13 +59,19 @@ Result<App> AppFactory::createApp(std::string&& title, int32_t screenWidth, int3
     GLFWwindow* window = glfwCreateWindow(screenWidth, 
                                           screenHeight, 
                                           title.c_str(), nullptr, nullptr);
-    App app(window);
     if (nullptr == window) {
         return Result<App>(Error(1, "glfw window creation failed."));
     }
 
-    glfwMakeContextCurrent(app.getWindow());
-    glfwSetWindowSizeCallback(app.getWindow(), App::onResize);
+    App app(window);
+    glfwMakeContextCurrent(app.window_);
+    glfwSetWindowSizeCallback(app.window_, App::onResize);
+
+    glewExperimental = GL_TRUE;
+    if (const GLenum errorCode = glewInit()) {
+        return Result<App>(Error(static_cast<int32_t>(errorCode), 
+                                 std::string(reinterpret_cast<const char*>(glewGetErrorString(errorCode)))));
+    } 
 
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glViewport(0, 0, screenWidth, screenHeight);
@@ -77,10 +80,4 @@ Result<App> AppFactory::createApp(std::string&& title, int32_t screenWidth, int3
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     return Result<App>(std::move(app));
-}
-
-namespace std {
-    void swap(App& lhs, App& rhs) noexcept {
-        lhs.swap(rhs);
-    }
 }

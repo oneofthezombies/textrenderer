@@ -2,80 +2,12 @@
 #include <fstream>
 #include <GL/glew.h>
 
-Shader::Shader(uint32_t value) noexcept
-    : value_(value) {
+void ShaderDeleter::operator()(uint32_t&& value) noexcept {
+    glDeleteShader(value);
 }
 
-Shader::Shader(Shader&& other) noexcept {
-    std::swap(*this, other);
-}
-
-Shader::~Shader() noexcept {
-    if (undefined != value_) {
-        glDeleteShader(value_);
-    }
-    value_ = undefined;
-}
-
-Shader& Shader::operator=(Shader&& other) noexcept {
-    std::swap(*this, other);
-    return *this;
-}
-
-uint32_t Shader::get() const noexcept {
-    return value_;
-}
-
-void Shader::swap(Shader& other) noexcept {
-    std::swap(value_, other.value_);
-}
-
-namespace std {
-    void swap(Shader& lhs, Shader& rhs) noexcept {
-        lhs.swap(rhs);
-    }
-}
-
-ShaderProgram::ShaderProgram(uint32_t value) noexcept 
-    : value_(value) {
-}
-
-ShaderProgram::ShaderProgram(ShaderProgram&& other) noexcept {
-    std::swap(*this, other);
-}
-
-ShaderProgram::~ShaderProgram() noexcept {
-    if (undefined != value_) {
-        glDeleteProgram(value_);
-    }
-    value_ = undefined;
-}
-
-ShaderProgram& ShaderProgram::operator=(ShaderProgram&& other) noexcept {
-    std::swap(*this, other);
-    return *this;
-}
-
-void ShaderProgram::swap(ShaderProgram& other) noexcept {
-    std::swap(value_, other.value_);
-}
-
-namespace std {
-    void swap(ShaderProgram& lhs, ShaderProgram& rhs) noexcept {
-        lhs.swap(rhs);
-    }
-}
-
-uint32_t ShaderProgram::get() const noexcept {
-    return value_;
-}
-
-Shader ShaderFactory::createVertexShader() const noexcept {
-    return Shader(glCreateShader(GL_VERTEX_SHADER));
-}
-
-Shader ShaderFactory::createFragmentShader() const noexcept {
-    return Shader(glCreateShader(GL_FRAGMENT_SHADER));
+void ShaderProgramDeleter::operator()(uint32_t&& value) noexcept {
+    glDeleteProgram(value);
 }
 
 Result<ShaderProgram> ShaderFactory::createShaderProgram(std::string&& vertexShaderPath, 
@@ -91,7 +23,7 @@ Result<ShaderProgram> ShaderFactory::createShaderProgram(std::string&& vertexSha
     vertexShaderFile.seekg(0);
     vertexShaderFile.read(vertexShaderCode.data(), vertexShaderCode.size());
 
-    Shader vertexShader = createVertexShader();
+    Shader vertexShader(glCreateShader(GL_VERTEX_SHADER));
     const char* vertexShaderCodePointer = vertexShaderCode.data();
     glShaderSource(vertexShader.get(), 1, &vertexShaderCodePointer, &vertexShaderCodeSize);
     glCompileShader(vertexShader.get());
@@ -116,7 +48,7 @@ Result<ShaderProgram> ShaderFactory::createShaderProgram(std::string&& vertexSha
     fragmentShaderFile.seekg(0);
     fragmentShaderFile.read(fragmentShaderCode.data(), fragmentShaderCode.size());
 
-    Shader fragmentShader = createFragmentShader();
+    Shader fragmentShader(glCreateShader(GL_FRAGMENT_SHADER));
     const char* fragmentShaderCodePointer = fragmentShaderCode.data();
     glShaderSource(fragmentShader.get(), 1, &fragmentShaderCodePointer, &fragmentShaderCodeSize);
     glCompileShader(fragmentShader.get());
@@ -148,14 +80,4 @@ Result<ShaderProgram> ShaderFactory::createShaderProgram(std::string&& vertexSha
     glDetachShader(shaderProgram.get(), fragmentShader.get());
 
     return Result<ShaderProgram>(std::move(shaderProgram));
-}
-
-Result<ShaderManager> ShaderManager::open() noexcept {
-    glewExperimental = GL_TRUE;
-    if (const GLenum errorCode = glewInit()) {
-        return Result<ShaderManager>(Error(static_cast<int32_t>(errorCode), 
-                                    std::string(reinterpret_cast<const char*>(glewGetErrorString(errorCode)))));
-    } 
-
-    return Result<ShaderManager>(ShaderManager{});
 }

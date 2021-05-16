@@ -8,7 +8,6 @@ int main() {
             App app(std::move(result.data()));
 
             std::vector<ShaderProgram> shaderPrograms;
-            ShaderManager::open().throwIfError();
             ShaderFactory().createShaderProgram("shader/vertex.glsl", "shader/fregment.glsl")
                 .throwIfError()
                 .onSuccess([&shaderPrograms](Result<ShaderProgram>& result) {
