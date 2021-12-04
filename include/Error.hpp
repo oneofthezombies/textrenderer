@@ -1,4 +1,5 @@
 #pragma once
+#include "Type.hpp"
 #include "Number.hpp"
 
 template<typename CodeType, typename MessageType>
@@ -44,4 +45,4 @@ struct ErrorBase {
     message_type message_;
 };
 
-using Error = ErrorBase<Int32, std::string>;
+using Error = ErrorBase<Int32, String>;
