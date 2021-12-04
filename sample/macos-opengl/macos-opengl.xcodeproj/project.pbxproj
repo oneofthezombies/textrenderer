@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		14872549275BF5BE0018D64B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14872548275BF5BE0018D64B /* main.cpp */; };
 		14872551275BF6020018D64B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14872550275BF6020018D64B /* OpenGL.framework */; };
-		1487255A275BF9790018D64B /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14872559275BF9790018D64B /* libGLEW.2.2.0.dylib */; };
-		14872562275C066B0018D64B /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1487255B275BF9840018D64B /* libglfw.3.3.dylib */; };
+		14872568275C0C410018D64B /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14872567275C0C410018D64B /* libglfw.3.3.dylib */; };
+		14872569275C0CCC0018D64B /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14872559275BF9790018D64B /* libGLEW.2.2.0.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,9 +30,9 @@
 		14872548275BF5BE0018D64B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		14872550275BF6020018D64B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		14872559275BF9790018D64B /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../third_party/glew/lib/arm64/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
-		1487255B275BF9840018D64B /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../third_party/glfw/lib/arm64/libglfw.3.3.dylib; sourceTree = "<group>"; };
 		1487255D275BFF1F0018D64B /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = ../../include; sourceTree = "<group>"; };
 		14872563275C06830018D64B /* macos-opengl.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "macos-opengl.entitlements"; sourceTree = "<group>"; };
+		14872567275C0C410018D64B /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../third_party/glfw/lib/arm64/libglfw.3.3.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,8 +40,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14872562275C066B0018D64B /* libglfw.3.3.dylib in Frameworks */,
-				1487255A275BF9790018D64B /* libGLEW.2.2.0.dylib in Frameworks */,
+				14872569275C0CCC0018D64B /* libGLEW.2.2.0.dylib in Frameworks */,
+				14872568275C0C410018D64B /* libglfw.3.3.dylib in Frameworks */,
 				14872551275BF6020018D64B /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -79,7 +79,7 @@
 		1487254F275BF6020018D64B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1487255B275BF9840018D64B /* libglfw.3.3.dylib */,
+				14872567275C0C410018D64B /* libglfw.3.3.dylib */,
 				14872559275BF9790018D64B /* libGLEW.2.2.0.dylib */,
 				14872550275BF6020018D64B /* OpenGL.framework */,
 			);
@@ -203,13 +203,13 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					../../third_party/glew/include/arm64,
+					../../third_party/glew/include,
 					../../third_party/glfw/include,
 					../../include,
 				);
 				LIBRARY_SEARCH_PATHS = (
-					../../third_party/glew/lib/arm64,
 					../../third_party/glfw/lib/arm64,
+					../../third_party/glew/lib/arm64,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -267,13 +267,13 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					../../third_party/glew/include/arm64,
+					../../third_party/glew/include,
 					../../third_party/glfw/include,
 					../../include,
 				);
 				LIBRARY_SEARCH_PATHS = (
-					../../third_party/glew/lib/arm64,
 					../../third_party/glfw/lib/arm64,
+					../../third_party/glew/lib/arm64,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -287,10 +287,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "macos-opengl/macos-opengl.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WA8B32A657;
 				ENABLE_HARDENED_RUNTIME = NO;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = hunhoekim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -299,10 +301,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "macos-opengl/macos-opengl.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WA8B32A657;
 				ENABLE_HARDENED_RUNTIME = NO;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = hunhoekim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
