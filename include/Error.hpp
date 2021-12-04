@@ -1,0 +1,47 @@
+#pragma once
+#include "Number.hpp"
+
+template<typename CodeType, typename MessageType>
+struct ErrorBase {
+    using self_type = ErrorBase;
+    using code_type = CodeType;
+    using message_type = MessageType;
+
+    ErrorBase(code_type&& code, message_type&& message) noexcept 
+        : code_(std::move(code))
+        , message_(std::move(message)) {}
+
+    ErrorBase(self_type&& other) noexcept 
+        : code_(std::move(other.code_))
+        , message_(std::move(other.message_)) {}
+
+    self_type& operator=(self_type&& other) noexcept {
+        code_ = std::move(other.code_);
+        message_ = std::move(other.message_);
+        return *this;
+    }
+
+    const code_type& getCode() const noexcept {
+        return code_;
+    }
+
+    code_type& getCode() noexcept {
+        return code_;
+    }
+
+    const message_type& getMessage() const noexcept {
+        return message_;
+    }
+
+    message_type& getMessage() noexcept {
+        return message_;
+    }
+
+    ErrorBase(const self_type&) = delete;
+    self_type& operator=(const self_type&) = delete;
+
+    code_type code_;
+    message_type message_;
+};
+
+using Error = ErrorBase<Int32, std::string>;

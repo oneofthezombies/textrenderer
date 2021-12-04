@@ -9,10 +9,9 @@ set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
 
 add_executable(${PROJECT_NAME} 
-    src/main.cpp 
-    src/Error.cpp
-    src/App.cpp
-    src/Shader.cpp
+    source/main.cpp 
+    # source/Shader.cpp
+    # src/App.cpp
 )
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY C_STANDARD 11)
@@ -39,3 +38,5 @@ target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/thirdpar
 add_library(harfbuzz SHARED IMPORTED)
 set_property(TARGET harfbuzz PROPERTY IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/thirdparty/harfbuzz-2.8.0/build/libharfbuzz.dylib")
 target_link_libraries(${PROJECT_NAME} PRIVATE harfbuzz)
+
+target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/include")

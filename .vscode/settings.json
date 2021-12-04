@@ -67,6 +67,11 @@
         "vector": "cpp",
         "__functional_03": "cpp",
         "variant": "cpp",
-        "__memory": "cpp"
+        "__memory": "cpp",
+        "condition_variable": "cpp",
+        "thread": "cpp",
+        "queue": "cpp",
+        "memory_resource": "cpp",
+        "__undef_macros": "cpp"
     }
 }
