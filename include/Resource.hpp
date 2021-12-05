@@ -5,7 +5,8 @@ template<
     typename Signature,
     typename ValueType,
     typename ResourceTraits,
-    typename ...AcquirerArguments>
+    typename ...AcquirerArguments
+>
 struct Resource {
     using self_type = Resource;
     using signature_type = Signature;
@@ -23,13 +24,23 @@ struct Resource {
             value_ = undefined;
         }
     }
+    
+    const value_type& get() const noexcept {
+        return value_;
+    }
+    
+    Resource(const self_type&) = delete;
+    self_type& operator=(const self_type&) = delete;
+    
+private:
     value_type value_;
 };
 
 template<
     typename Signature,
     typename ValueType,
-    typename ...AcquirerArguments>
+    typename ...AcquirerArguments
+>
 struct ResourceTraits {
     using self_type = ResourceTraits;
     using signature_type = Signature;
