@@ -11,6 +11,7 @@
 		14872551275BF6020018D64B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14872550275BF6020018D64B /* OpenGL.framework */; };
 		1487256B275C0E7A0018D64B /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1487256A275C0E7A0018D64B /* libGLEW.2.2.0.dylib */; };
 		1487256D275C0E850018D64B /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1487256C275C0E850018D64B /* libglfw.3.3.dylib */; };
+		14872570275CE7950018D64B /* libfreetype.6.18.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1487256F275CE7950018D64B /* libfreetype.6.18.1.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,10 +30,11 @@
 		14872545275BF5BE0018D64B /* macos-opengl */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "macos-opengl"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14872548275BF5BE0018D64B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		14872550275BF6020018D64B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		1487255D275BFF1F0018D64B /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = ../../include; sourceTree = "<group>"; };
 		14872563275C06830018D64B /* macos-opengl.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "macos-opengl.entitlements"; sourceTree = "<group>"; };
 		1487256A275C0E7A0018D64B /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../third_party/glew/lib/macos/arm64/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
 		1487256C275C0E850018D64B /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../third_party/glfw/lib/macos/arm64/libglfw.3.3.dylib; sourceTree = "<group>"; };
+		1487256E275CC1E50018D64B /* textrenderer */ = {isa = PBXFileReference; lastKnownFileType = folder; name = textrenderer; path = ../..; sourceTree = "<group>"; };
+		1487256F275CE7950018D64B /* libfreetype.6.18.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.6.18.1.dylib; path = ../../third_party/freetype/lib/macos/arm64/libfreetype.6.18.1.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14872570275CE7950018D64B /* libfreetype.6.18.1.dylib in Frameworks */,
 				1487256D275C0E850018D64B /* libglfw.3.3.dylib in Frameworks */,
 				1487256B275C0E7A0018D64B /* libGLEW.2.2.0.dylib in Frameworks */,
 				14872551275BF6020018D64B /* OpenGL.framework in Frameworks */,
@@ -52,7 +55,7 @@
 		1487253C275BF5BE0018D64B = {
 			isa = PBXGroup;
 			children = (
-				1487255D275BFF1F0018D64B /* include */,
+				1487256E275CC1E50018D64B /* textrenderer */,
 				14872547275BF5BE0018D64B /* macos-opengl */,
 				14872546275BF5BE0018D64B /* Products */,
 				1487254F275BF6020018D64B /* Frameworks */,
@@ -79,6 +82,7 @@
 		1487254F275BF6020018D64B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1487256F275CE7950018D64B /* libfreetype.6.18.1.dylib */,
 				1487256C275C0E850018D64B /* libglfw.3.3.dylib */,
 				1487256A275C0E7A0018D64B /* libGLEW.2.2.0.dylib */,
 				14872550275BF6020018D64B /* OpenGL.framework */,
@@ -206,10 +210,13 @@
 					../../third_party/glew/include,
 					../../third_party/glfw/include,
 					../../include,
+					../../third_party/glm/include,
+					../../third_party/freetype/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					../../third_party/glfw/lib/macos/arm64,
 					../../third_party/glew/lib/macos/arm64,
+					../../third_party/freetype/lib/macos/arm64,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -270,10 +277,13 @@
 					../../third_party/glew/include,
 					../../third_party/glfw/include,
 					../../include,
+					../../third_party/glm/include,
+					../../third_party/freetype/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					../../third_party/glfw/lib/macos/arm64,
 					../../third_party/glew/lib/macos/arm64,
+					../../third_party/freetype/lib/macos/arm64,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
