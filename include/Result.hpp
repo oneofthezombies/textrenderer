@@ -26,11 +26,11 @@ struct ResultBase {
         return *std::get_if<value_type>(&value_);
     }
 
-    const error_type& error() const noexcept {
+    const error_type& getError() const noexcept {
         return *std::get_if<error_type>(&value_);
     }
 
-    error_type& error() noexcept {
+    error_type& getError() noexcept {
         return *std::get_if<error_type>(&value_);
     }
 
